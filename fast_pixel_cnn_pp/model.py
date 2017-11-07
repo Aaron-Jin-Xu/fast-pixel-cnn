@@ -42,8 +42,8 @@ def model_spec(row_input,
                col,
                image_size,
                h=None,
-               nr_resnet=5,
-               nr_filters=160,
+               nr_resnet=4,
+               nr_filters=100,
                nr_logistic_mix=10,
                resnet_nonlinearity='concat_elu',
                seed=None):
@@ -82,7 +82,7 @@ def model_spec(row_input,
 
             # The initial computation to the network. Importantly, it is assumed that the
             # vertical stack inputs are already downshifted, and the horizontal stack inputs
-            # are already rightshifted. 
+            # are already rightshifted.
             v_stack = []
             u_list_input = fast_nn.down_shifted_conv2d(
                 row_input, (image_size, u_filter),
@@ -290,7 +290,7 @@ def model_spec(row_input,
                     run_every=run_every,
                     nonlinearity=resnet_nonlinearity)
 
-            # Upsample.    
+            # Upsample.
             cache_every, run_every = 2, 1
             u = fast_nn.down_shifted_deconv2d(
                 u, (image_size, u_filter),
